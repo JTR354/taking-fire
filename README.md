@@ -1,3 +1,3 @@
 # Taking Fire
 
-## [JavaScript](./docs/js)
+## [JavaScript](./docs/js/README.md)
