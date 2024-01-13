@@ -1,6 +1,11 @@
 import { TEXT_ELEMENT } from "./constants.js";
 
 function render(vnode, el) {
+  // function component
+  if (typeof vnode.type === "function") {
+    render(vnode.type(vnode.props), el);
+    return;
+  }
   const dom =
     vnode.type === TEXT_ELEMENT
       ? document.createTextNode("")
