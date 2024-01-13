@@ -1,6 +1,6 @@
 import { TEXT_ELEMENT } from "./constants.js";
 
-function createElement(type, props, ...children) {
+export function createElement(type, props, ...children) {
   return {
     type,
     props: {
@@ -12,7 +12,7 @@ function createElement(type, props, ...children) {
   };
 }
 
-function createTextNode(nodeValue) {
+export function createTextNode(nodeValue) {
   return {
     type: TEXT_ELEMENT,
     props: {

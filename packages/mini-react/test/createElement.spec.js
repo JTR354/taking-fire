@@ -1,9 +1,9 @@
 import { describe, it, expect } from "vitest";
-import React from "../core/react";
+import { createElement } from "../core/react";
 
 describe("createElement", () => {
   it("should be return vnode", () => {
-    const el = React.createElement("div", { id: "id", className: "red" }, "hi");
+    const el = createElement("div", { id: "id", className: "red" }, "hi");
 
     expect(el).toMatchInlineSnapshot(`
       {
@@ -26,7 +26,7 @@ describe("createElement", () => {
   });
 
   it("should be empty children", () => {
-    const el = React.createElement("div", null);
+    const el = createElement("div", null);
     expect(el).toMatchInlineSnapshot(`
       {
         "props": {
@@ -38,7 +38,7 @@ describe("createElement", () => {
   });
 
   it("should be return multi children", () => {
-    const el = React.createElement("div", null, "mini-", "react");
+    const el = createElement("div", null, "mini-", "react");
     expect(el).toMatchInlineSnapshot(`
       {
         "props": {
