@@ -1,4 +1,5 @@
-import React from "./core/react.js";
+/**@jsx CReact.createElement */
+import CReact from "./core/react.js";
 
 const App = () => (
   <div className="red">
