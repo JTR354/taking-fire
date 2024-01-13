@@ -1,0 +1,16 @@
+{
+  "folders": [
+    {
+      "name": "taking-fire",
+      "path": "."
+    },
+    {
+      "name": "mini-react",
+      "path": "./packages/mini-react"
+    }
+  ],
+  "settings": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
