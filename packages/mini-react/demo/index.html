@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>requestIdleCallback</title>
+  </head>
+  <body>
+    <h1></h1>
+    <input type="text" />
+    <button>start/stop</button>
+
+    <script>
+      let taskId = 1;
+      let requestId;
+
+      document.querySelector("button").addEventListener("click", () => {
+        console.log(`requestId： ${requestId}`);
+        if (requestId) {
+          cancelIdleCallback(requestId);
+          requestId = 0;
+        } else {
+          requestId = requestIdleCallback(workLoop);
+        }
+      });
+
+      function workLoop(IdleDeadline) {
+        let showYield = false;
+        taskId++;
+
+        while (!showYield) {
+          console.log(`run taskId: ${taskId}`);
+          document.querySelector("h1").innerText = taskId;
+          showYield = IdleDeadline.timeRemaining() < 1;
+        }
+        requestId = requestIdleCallback(workLoop);
+      }
+    </script>
+  </body>
+</html>
