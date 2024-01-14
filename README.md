@@ -1,3 +1,5 @@
 # taking-fire
 
-## [1.javascript](./docs/js/README.md)
+## [javascript](./docs/js/README.md)
+
+## [mini-react](./packages/mini-react/README.md)
