@@ -11,3 +11,29 @@ You can call requestIdleCallback() within an idle callback function to schedule 
 > 备注： 强烈建议使用 timeout 选项进行必要的工作，否则可能会在触发回调之前经过几秒钟。
 
 Note: A timeout option is strongly recommended for required work, as otherwise it's possible multiple seconds will elapse before the callback is fired.
+
+## Syntax
+
+```js
+requestIdleCallback(callback, options?)
+```
+
+### Parameters
+
+#### callback
+
+> 一个在事件循环空闲时即将被调用的函数的引用。函数会接收到一个名为 IdleDeadline 的参数，这个参数可以获取当前空闲时间以及回调是否在超时时间前已经执行的状态。
+
+A reference to a function that should be called in near future, when event loop is idle. The callback function is passed an IdleDeadline describing the amount of time available and whether or not the callback has been run because the timeout period expired.
+
+#### options(optional)
+
+> 包括可选的配置参数。具有如下属性：
+>
+> > - timeout：如果指定了 timeout，并且有一个正值，而回调在 timeout 毫秒过后还没有被调用，那么回调任务将放入事件循环中排队，即使这样做有可能对性能产生负面影响。
+
+Contains optional configuration parameters. Currently only one property is defined:
+
+- timeout:
+  If the number of milliseconds represented by this parameter has elapsed and the callback has not already been called, then a task to execute the callback is queued in the event loop(even if doing so risk causing a negative performance impact )
+  timeout must be a positive value or it's ignored.
