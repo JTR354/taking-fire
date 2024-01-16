@@ -69,31 +69,36 @@ function commitWork(fiber) {
 
 requestIdleCallback(workLoop);
 
-function performanceUnitWork(work) {
-  const isFunctionComponent = (type) => typeof type === "function";
-  // 1. create dom
-  if (!isFunctionComponent(work.type)) {
-    if (!work.dom) {
-      const dom = (work.dom = createDOM(work.type));
-      // 2. update props
-      updateProps(work.props, dom);
-      // work.parent.dom.append(dom);
-    }
+function updateFunctionComponent(fiber) {
+  const children = [fiber.type(fiber.props)];
+  initialChildren(fiber, children);
+}
+
+function updateHostComponent(fiber) {
+  if (!fiber.dom) {
+    const dom = (fiber.dom = createDOM(fiber.type));
+    updateProps(fiber.props, dom);
   }
-  // 3. transform vnode to fiber
-  const children = isFunctionComponent(work.type)
-    ? [work.type(work.props)]
-    : work.props.children;
-  initialChildren(work, children);
+  const children = fiber.props.children;
+  initialChildren(fiber, children);
+}
+
+function performanceUnitWork(fiber) {
+  const isFunctionComponent = typeof fiber.type === "function";
+  if (isFunctionComponent) {
+    updateFunctionComponent(fiber);
+  } else {
+    updateHostComponent(fiber);
+  }
   // 4. return next work
-  if (work.child) {
-    return work.child;
+  if (fiber.child) {
+    return fiber.child;
   }
 
-  let nextWork = work;
-  while (nextWork) {
-    if (nextWork.sibling) return nextWork.sibling;
-    nextWork = nextWork.parent;
+  let nextFiber = fiber;
+  while (nextFiber) {
+    if (nextFiber.sibling) return nextFiber.sibling;
+    nextFiber = nextFiber.parent;
   }
 }
 
