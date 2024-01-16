@@ -19,8 +19,8 @@ const App = () => (
     <h1>mini-react</h1>
     <input placeholder="mini-react" />
     <button>add</button>
-    <Counter num="1" />
-    <Counter num="12" />
+    <Counter num={1} />
+    <Counter num={12} />
   </div>
 );
 
