@@ -3,6 +3,7 @@ import { TEXT_ELEMENT } from "./constants.js";
 let wipRoot = null;
 let currentRoot = null;
 let nextUnitOfWork = null;
+let deletions = [];
 requestIdleCallback(workLoop);
 
 export function createElement(type, props, ...children) {
@@ -61,9 +62,23 @@ function workLoop(idleDeadline) {
 }
 
 function commitRoot() {
+  deletions.forEach(commitDelete);
   commitWork(wipRoot.child);
   currentRoot = wipRoot;
   wipRoot = null;
+  deletions = [];
+}
+
+function commitDelete(fiber) {
+  if (fiber.dom) {
+    let fiberParent = fiber.parent;
+    while (!fiberParent.dom) {
+      fiberParent = fiberParent.parent;
+    }
+    fiberParent.dom.removeChild(fiber.dom);
+  } else {
+    commitDelete(fiber.child);
+  }
 }
 
 function commitWork(fiber) {
@@ -180,6 +195,9 @@ function reconcileChildren(fiber, children) {
         dom: null,
         effectTag: "placement",
       };
+      if (olderFiber) {
+        deletions.push(olderFiber);
+      }
     }
     if (olderFiber) {
       olderFiber = olderFiber.sibling;

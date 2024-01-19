@@ -5,15 +5,9 @@ const Child = () => {
   return <div>child</div>;
 };
 
-let count = 0;
+let showBar = true;
 const Counter = ({ num }) => {
-  return (
-    <div>
-      {num}
-      {count}
-      <Child></Child>
-    </div>
-  );
+  return <div>{showBar ? <Child /> : <p>p</p>}</div>;
 };
 
 const App = () => (
@@ -23,14 +17,13 @@ const App = () => (
     <button
       onClick={() => {
         console.log("leo");
-        count++;
+        showBar = !showBar;
         update();
       }}
     >
       add
     </button>
     <Counter num={1} />
-    <Counter num={12} />
   </div>
 );
 
