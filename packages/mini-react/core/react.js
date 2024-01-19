@@ -186,15 +186,17 @@ function reconcileChildren(fiber, children) {
         effectTag: "update",
       };
     } else {
-      newFiber = {
-        sibling: null,
-        child: null,
-        parent: fiber,
-        type: child.type,
-        props: child.props,
-        dom: null,
-        effectTag: "placement",
-      };
+      if (child) {
+        newFiber = {
+          sibling: null,
+          child: null,
+          parent: fiber,
+          type: child.type,
+          props: child.props,
+          dom: null,
+          effectTag: "placement",
+        };
+      }
       if (olderFiber) {
         deletions.push(olderFiber);
       }
@@ -207,7 +209,9 @@ function reconcileChildren(fiber, children) {
     } else {
       prevChild.sibling = newFiber;
     }
-    prevChild = newFiber;
+    if (newFiber) {
+      prevChild = newFiber;
+    }
   });
 
   while (olderFiber) {

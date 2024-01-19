@@ -13,24 +13,24 @@ const Child = () => {
 };
 
 let showBar = true;
+const bar = <div>bar</div>;
+const foo = (
+  <div>
+    foo
+    <p>child1</p>
+    <p>child2</p>
+    <p>child3</p>
+  </div>
+);
 const Counter = ({ num }) => {
-  const foo = (
-    <div>
-      foo
-      <p>child1</p>
-      <p>child2</p>
-      <p>child3</p>
-    </div>
-  );
-
-  const bar = <div>bar</div>;
-  return <div>{showBar ? bar : foo}</div>;
+  return <div>{showBar && bar}</div>;
 };
 
 const App = () => (
   <div className="red">
     <h1>mini-react</h1>
     <input placeholder="mini-react" />
+    {showBar && bar}
     <button
       onClick={() => {
         console.log("leo");
@@ -40,7 +40,6 @@ const App = () => (
     >
       add
     </button>
-    <Counter num={1} />
   </div>
 );
 
