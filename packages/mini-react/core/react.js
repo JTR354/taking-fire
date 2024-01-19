@@ -209,4 +209,9 @@ function reconcileChildren(fiber, children) {
     }
     prevChild = newFiber;
   });
+
+  while (olderFiber) {
+    deletions.push(olderFiber);
+    olderFiber = olderFiber.sibling;
+  }
 }
